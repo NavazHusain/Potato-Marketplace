@@ -17,7 +17,7 @@ class TestDataCollector(unittest.TestCase):
         
         # Create a temporary database file
         self.db, self.db_path = tempfile.mkstemp(suffix='.sqlite')
-        self.collector = datacollector.DataCollector(self.app,db=self.db_path)
+        self.collector = datacollector.DataCollector(self.app,db=self.db_path,fetch_uri='http://127.0.0.1:5000/api/listings')
         with sqlite3.connect(self.db_path) as conn:
             c = conn.cursor()
             c.execute('''

@@ -1,11 +1,14 @@
 import time
 import threading
 import requests
-from flask import Flask, url_for, current_app as app
+from flask import Flask, url_for, current_app as app,jsonify,request
 import sys
 import sqlite3
+from . import db
 
 DATABASE = 'listings.db'
+
+
 
 class DataCollector:
     def __init__(self, app,db=DATABASE,fetch_uri='http://127.0.0.1:5000/api/listings'):
@@ -16,9 +19,14 @@ class DataCollector:
     def get_data_listings_forsale(self):
         with self.app.app_context():
             api_url = self.fetch_uri
-            response = requests.get(api_url)
-            data=response.json()
-            return data
+            try: 
+                response = requests.get(api_url)
+                data=response.json()
+                return data
+            except:
+                pass
+            listings = db.fetch_all_unsold()
+            return listings
 
     def collect_data(self):
         with self.app.app_context():

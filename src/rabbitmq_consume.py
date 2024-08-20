@@ -1,6 +1,6 @@
 import pika, os
 import json
-import db
+from . import db
 import sys
 
 # Access the CLODUAMQP_URL environment variable and parse it (fallback to localhost)
