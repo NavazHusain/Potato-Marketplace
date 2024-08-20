@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings</title>
+    <script>
+        function completeSale(itemId) {
+            fetch('/sold', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ item: { Id: itemId } })
+            })
+            .then(response => response.json())
+            .then(data => { 
+                alert(data.message);
+                window.location.reload(); 
+            })
+            .catch(error => console.error('Error:', error));
+             window.location.reload();
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <a href="{{ url_for('sellers') }}"><button>Sellers Page</button></a>
+        <a href="{{ url_for('index') }}"><button>Home Page</button></a>
+        <a href="{{ url_for('display_report') }}"><button>Production Reports</button></a>
+    </div>
+    <h1> Potato Listings Marketplace </h1>
+    <h3> The below listings are  placed on hold by a buy request. (in grey)  </h3>
+    <h3>For adding a new sell listing , please go <a href="{{ url_for('sellers') }}">here.</a> </h3>
+    <h3>On hold orders are pushed to a queue for payment . Click on Refresh status button to see if payment and sale is completed. </h3>
+    <h3>To manually complete your buy request and notify payment and delivery  , please click on the complete sale manually button. </h3>
+
+    <table border="1" style="width: 100%; margin-top: 20px;">
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>State of Origin</th>
+            <th>Grade</th>
+            <th>Weight</th>
+            <th>Amount per pound</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        {% for item in listings %}
+        {%if item.Status.text|string  in ('paid') %}
+        <tr>
+            <td>{{ item.Id }}</td>
+            <td>{{ item.Type }}</td>
+            <td>{{ item.State_of_Origin }}</td>
+            <td>{{ item.Grade }}</td>
+            <td>{{ item.Weight }}</td>
+            <td>{{ item.Amount }}</td>
+            <td>{{ item.Status }}</td>
+            <td>
+                <button onclick="window.location.reload()">Refresh Payment Status</button>
+                <button onclick="completeSale('{{ item.Id }}')">Complete Sale Manually</button>
+            </td>
+        </tr>
+        {% elif item.Status.text|string in ("onhold","sold") %}
+        <tr style="background:grey;">
+            <td>{{ item.Id }}</td>
+            <td>{{ item.Type }}</td>
+            <td>{{ item.State_of_Origin }}</td>
+            <td>{{ item.Grade }}</td>
+            <td>{{ item.Weight }}</td>
+            <td>{{ item.Amount }}</td>
+            <td>{{ item.Status }}</td>
+            <td>
+                 None
+            </td>
+        </tr>
+
+        {%endif%}
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>

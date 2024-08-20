@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listings</title>
+    <script>
+        function buyItem(itemId) {
+            fetch('/buy', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ item: { Id: itemId } })
+            })
+            .then(response => response.json())
+            .then(data => { 
+                alert(data.message);
+                window.location.reload(); 
+            })
+            .catch(error => console.error('Error:', error));
+            
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <a href="{{ url_for('sellers') }}"><button>Sellers Page</button></a>
+        <a href="{{ url_for('buyers') }}"><button>Buyers Page</button></a>
+        <a href="{{ url_for('display_report') }}"><button>Production Reports</button></a>
+        
+    </div>
+    <h1> Potato Listings Marketplace </h1>
+    <h3> The below listings are available for sale with the exception of those placed on hold by a buy request. (in grey)  </h3>
+    <h3>For adding a new sell listing , please go <a href="{{ url_for('sellers') }}">here.</a> </h3>
+    <h3>To check the status of your buy request and complete payment and delivery  , please go <a href="{{ url_for('buyers') }}">here.</a> </h3>
+    <table border="1" style="width: 100%; margin-top: 20px;">
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>State of Origin</th>
+            <th>Grade</th>
+            <th>Weight</th>
+            <th>Amount per pound</th>
+            <th>Action</th>
+        </tr>
+        {% for item in listings %}
+        {%if item.Status|string  in ("available") %}
+        <tr>
+            <td>{{ item.Id }}</td>
+            <td>{{ item.Type }}</td>
+            <td>{{ item.State_of_Origin }}</td>
+            <td>{{ item.Grade }}</td>
+            <td>{{ item.Weight }}</td>
+            <td>{{ item.Amount }}</td>
+            <td>
+                <button onclick="buyItem('{{ item.Id }}')">Buy</button>
+            </td>
+        </tr>
+        {% elif item.Status|string in ('onhold') %}
+        <tr style="background:grey;">
+            <td>{{ item.Id }}</td>
+            <td>{{ item.Type }}</td>
+            <td>{{ item.State_of_Origin }}</td>
+            <td>{{ item.Grade }}</td>
+            <td>{{ item.Weight }}</td>
+            <td>{{ item.Amount }}</td>
+            <td>
+                 On Hold 
+            </td>
+        </tr>
+
+        {%endif%}
+        {% endfor %}
+    </table>
+
+    
+</body>
+</html>

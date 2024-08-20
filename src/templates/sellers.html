@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Listing</title>
+</head>
+<body>
+    <h1> Potato Listings Marketplace </h1>
+    {% if listingid %}
+    {{listingid}}  was successfully added to the database .
+
+    {%endif%}
+
+    <div>
+        <a href="{{ url_for('index') }}"><button>Home</button></a>
+        <a href="{{ url_for('buyers') }}"><button>Buyers Page</button></a>
+        <a href="{{ url_for('display_report') }}"><button>Production Reports</button></a>
+    </div>
+    <br>
+    <h2>Add a New Listing</h2>
+    <br>
+    <form action="{{ url_for('add_listing') }}" method="post">
+        <label for="type">Type:</label>
+        <select name="type" id="type" required>
+            <option value="Russet">Russet</option>
+            <option value="Gold">Gold</option>
+            <option value="Idaho Red">Idaho Red</option>
+        </select>
+        <br>
+
+        <label for="state_of_origin">State of Origin:</label>
+        <select name="state_of_origin" id="state_of_origin" required>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Maine">Maine</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Colorado">Colorado</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Idaho">Idaho</option>
+        </select>
+        <br>
+
+        <label for="grade">Grade:</label>
+        <select name="grade" id="grade" required>
+            <option value="Excellent">Excellent</option>
+            <option value="Good">Good</option>
+            <option value="Middling">Middling</option>
+            <option value="Cattle Feed">Cattle Feed</option>
+        </select>
+        <br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" name="weight" id="weight" step="any" required>
+        <br>
+
+        <label for="amount">Amount:</label>
+        <input type="number" name="amount" id="amount" step="any" required>
+        <br>
+
+        <br>
+        <br>
+
+        <button type="submit">Add Listing</button>
+    </form>
+</body>
+</html>

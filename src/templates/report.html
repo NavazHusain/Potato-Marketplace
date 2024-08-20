@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Report</title>
+</head>
+<body>
+    <div>
+        <a href="{{ url_for('index') }}"><button>Home</button></a>
+        <a href="{{ url_for('buyers') }}"><button>Buyers Page</button></a>
+        <a href="{{ url_for('sellers') }}"><button>Sellers Page</button></a>
+    </div>
+    <h1>State Report</h1>
+    <ul>
+        {% for state in state_report %}
+            <li>{{ state['State_of_Origin'] }}: {{ state['weight'] }} pounds, {{ state['amount'] }} USD</li>
+        {% endfor %}
+    </ul>
+
+    <h1>Grade Report</h1>
+    <ul>
+        {% for grade in grade_report %}
+            <li>{{ grade['Grade'] }}: {{ grade['weight'] }} pounds, {{ grade['amount'] }} USD</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
