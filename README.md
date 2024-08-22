@@ -2,26 +2,8 @@
 
 FINAL CAPSTONE PROJECT: POTATO MARKETPLACE 
 
-TABLE OF CONTENTS
-FinAl Capstone Project: Potato marketplace	1
-Introduction :	1
-High Level Architecture Diagram :	2
-Detail Design Description:	2
-Buyer workflow :	2
-Seller Workflow :	3
-Design Decisions:	4
-System Requirements & Testing Strategies :	4
-General Rubric A Level Work  & its mapping to features on the Potato Marketplace project	5
-
-
-INTRODUCTION: 
-To build a capstone project that satisfies the rubric given out at the beginning of this course, I have decided to build a sample marketplace application. By its very nature this sort of apps implements frontends, backends with databases, workflows that need an event collaboration messaging , reporting etc .
 The proposed Potato marketplace provides a one stop solution to serve bulk potato buyers and sellers and act as an interface between them.  The entire project is hosted on 
 https://potatomarket-0393ca13f662.herokuapp.com/index
-
-
-HIGH LEVEL ARCHITECTURE DIAGRAM : 
- 
 
 
 DETAIL DESIGN DESCRIPTION: 
